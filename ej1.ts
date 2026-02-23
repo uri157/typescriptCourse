@@ -36,8 +36,9 @@ function TwoSum(data:number[],target:number):[number,number]{
 
     for (let i = 0 ; i<data.length ; i++ ){
         const need: number = target - data[i];
-        if (seen.has(need)){
-            return [seen.get(need),i];
+        const j = seen.get(need);
+        if (j !== undefined){
+            return [j,i];
         }
 
         seen.set(data[i],i);
