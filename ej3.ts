@@ -24,22 +24,24 @@ Dado un string s, encontrá la longitud de la substring más larga que no repite
 
 
 
-function lengthOfLongestSubstring(s: string): number {
-    const lastIndex = new Map<string, number>(); // char -> último índice visto
+
+function longestSubString(s:string):number{
     let left = 0;
+    let right = 0;
     let best = 0;
-  
-    for (let right = 0; right < s.length; right++) {
-      const ch = s[right];
-      const prev = lastIndex.get(ch);
-  
-      if (prev !== undefined && prev >= left) {
-        left = prev + 1; // saltás el repetido dentro de la ventana
-      }
-  
-      lastIndex.set(ch, right);
-      best = Math.max(best, right - left + 1);
+
+    let set = new Set<string>();
+
+    for(let right = 0; right < s.length; right++){
+        let ch=s[right];
+        while(set.has(ch)){
+            set.delete(s[left]);
+            left++;
+        }
+
+        set.add(ch);
+        best= Math.max(best, right - left + 1);
     }
-  
+
     return best;
-  }
+}
